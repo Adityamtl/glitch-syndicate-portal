@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACCESS GRANTED: The Glitch Syndicate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+        ROOT & GLOBAL STYLES
+        ========================================
+        */
+        :root {
+            --neon-purple: #9400D3;
+            --neon-cyan: #00FFFF;
+            --neon-magenta: #FF00FF;
+            --dark-bg: #0b021a;
+            --text-color: #d1d1d1;
+            
+            --glow-purple: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 40px var(--neon-magenta), 0 0 80px var(--neon-magenta);
+            --glow-cyan: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px #00aaff, 0 0 80px #00aaff;
+            
+            --font-heading: 'Orbitron', sans-serif;
+            --font-body: 'Share Tech Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        body {
+            /* Animated grid background */
+            background-image:
+                linear-gradient(to right, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: bg-pan 30s linear infinite;
+        }
+        
+        @keyframes bg-pan {
+            from { background-position: 0 0; }
+            to { background-position: -400px -400px; }
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        p {
+            line-height: 1.7;
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin-bottom: 1rem;
+        }
+
+        /* ========================================
+        LOADING SCREEN
+        ========================================
+        */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease-out;
+        }
+
+        #loader-content {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        #loader-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        #loader-content .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background: var(--neon-cyan);
+            animation: blink 0.7s infinite;
+        }
+
+        #access-granted {
+            display: none;
+            font-size: 2rem;
+            font-family: var(--font-heading);
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-purple);
+            animation: flicker 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ========================================
+        MAIN APP & LAYOUT
+        ========================================
+        */
+        #app-container {
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity 1.5s ease-in;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* CRT/Glitch overlay effect */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0,0,0,0.5) 0,
+                    rgba(0,0,0,0.5) 1px,
+                    transparent 1px,
+                    transparent 3px
+                );
+            background-size: 100% 3px;
+            opacity: 0.3;
+            z-index: 998;
+            animation: scanlines 5s linear infinite;
+        }
+        
+        @keyframes scanlines {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: rgba(10, 0, 20, 0.1);
+            z-index: 997;
+            animation: glitch-flicker 8s steps(1) infinite;
+        }
+        
+        @keyframes glitch-flicker {
+            0% { opacity: 0.1; }
+            5% { opacity: 0.3; }
+            10% { opacity: 0.1; }
+            20% { opacity: 0.5; }
+            22% { opacity: 0.1; }
+            30% { opacity: 0.3; }
+            100% { opacity: 0.1; }
+        }
+
+
+        main > section {
+            display: none; /* All sections hidden by default */
+            min-height: 70vh;
+            padding: 2rem 0;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        main > section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========================================
+        UI ELEMENTS (BUTTONS, CARDS)
+        ========================================
+        */
+        .btn-glitch {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            padding: 1rem 2rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 10px 0 var(--neon-cyan), 0 0 10px 0 var(--neon-cyan);
+            margin: 1rem 0.5rem;
+        }
+
+        .btn-glitch:hover {
+            color: var(--dark-bg);
+            background: var(--neon-cyan);
+            box-shadow: 0 0 20px 0 var(--neon-cyan), 0 0 40px 0 var(--neon-cyan);
+        }
+
+        .btn-glitch::before,
+        .btn-glitch::after {
+            content: ' ';
+            position: absolute;
+            background: var(--dark-bg);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn-glitch:hover::before {
+            transform: translateX(5px);
+            opacity: 0.5;
+            animation: glitch-btn 0.3s infinite;
+        }
+
+        .btn-glitch:hover::after {
+            transform: translateX(-5px);
+            opacity: 0.5;
+            animation: glitch-btn 0.3s infinite reverse;
+        }
+        
+        @keyframes glitch-btn {
+            0% { clip-path: inset(0 0 50% 0); }
+            50% { clip-path: inset(50% 0 0 0); }
+            100% { clip-path: inset(0 0 50% 0); }
+        }
+
+        .ui-card {
+            background: rgba(15, 0, 30, 0.8);
+            border: 1px solid var(--neon-purple);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 0 15px var(--neon-purple), 0 0 10px var(--neon-purple);
+            backdrop-filter: blur(5px);
+        }
+
+        /* ========================================
+        HOME SECTION
+        ========================================
+        */
+        #home {
+            display: flex; /* Active by default in JS */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 80vh;
+        }
+
+        #home h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: flicker 3s infinite alternate;
+        }
+
+        #home .subtext {
+            font-size: 1.5rem;
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-purple);
+            margin-bottom: 2rem;
+        }
+        
+        @keyframes flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: var(--glow-cyan);
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                opacity: 0.7;
+            }
+        }
+
+        /* ========================================
+        ABOUT SECTION
+        ========================================
+        */
+        #about h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        #about .lore {
+            text-align: center;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            color: var(--neon-magenta);
+        }
+
+        .leader-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .leader-card {
+            background: rgba(15, 0, 30, 0.8);
+            border: 1px solid var(--neon-purple);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: inset 0 0 10px var(--neon-purple);
+            transition: all 0.3s ease;
+        }
+        
+        .leader-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--neon-purple);
+        }
+
+        .leader-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-cyan);
+            margin-bottom: 1rem;
+            filter: grayscale(80%) contrast(120%);
+        }
+        
+        .leader-card h3 {
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-purple);
+            margin-bottom: 0.5rem;
+        }
+        
+        .leader-card p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+        QUIZ SECTION
+        ========================================
+        */
+        #quiz h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .question-card {
+            margin-bottom: 2rem;
+        }
+
+        .question-card h3 {
+            font-size: 1.5rem;
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-purple);
+            margin-bottom: 1rem;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .options-group label {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border: 1px solid var(--neon-cyan);
+            background: rgba(0, 50, 50, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .options-group label:hover {
+            background: rgba(0, 100, 100, 0.5);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .options-group input[type="radio"] {
+            display: none;
+        }
+
+        .options-group input[type="radio"]:checked + label {
+            background: var(--neon-cyan);
+            color: var(--dark-bg);
+            text-shadow: none;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+        
+        #quiz-form button {
+            display: block;
+            margin: 2rem auto 0 auto;
+        }
+
+        /* ========================================
+        RESULT & JOIN SECTIONS
+        ========================================
+        */
+        #result, #join {
+            text-align: center;
+            display: none; /* Handled by JS */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #result h2 {
+            font-size: 2rem;
+            color: var(--text-color);
+            text-shadow: none;
+            margin-bottom: 1.5rem;
+        }
+
+        #result-role {
+            font-size: 3.5rem;
+            color: var(--neon-magenta);
+            text-shadow: var(--glow-purple);
+            animation: glitch-text 2s steps(4) infinite;
+        }
+        
+        @keyframes glitch-text {
+            0% {
+                text-shadow: var(--glow-purple);
+                transform: skew(0);
+                clip-path: inset(80% 0 0 0);
+            }
+            10% {
+                transform: skew(0.5deg, -0.2deg);
+                clip-path: inset(20% 0 50% 0);
+            }
+            30% {
+                transform: skew(0.8deg, 0.3deg);
+                clip-path: inset(60% 0 10% 0);
+            }
+            50% {
+                text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+                transform: skew(-1deg, -0.5deg);
+                clip-path: inset(10% 0 60% 0);
+            }
+            70% {
+                transform: skew(0.2deg, 0.4deg);
+                clip-path: inset(40% 0 30% 0);
+            }
+            90% {
+                transform: skew(-0.7deg, -0.1deg);
+                clip-path: inset(70% 0 5% 0);
+            }
+            100% {
+                text-shadow: var(--glow-purple);
+                transform: skew(0);
+                clip-path: inset(80% 0 0 0);
+            }
+        }
+
+        #join h2 {
+            font-size: 2.5rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1.5rem;
+        }
+        
+        #join p {
+            color: var(--neon-magenta);
+            font-size: 1.3rem;
+        }
+
+        /* ========================================
+        FOOTER
+        ========================================
+        */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px dashed var(--neon-purple);
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple);
+            animation: flicker 5s infinite alternate;
+        }
+
+        /* ========================================
+        RESPONSIVENESS
+        ========================================
+        */
+        @media (max-width: 768px) {
+            body {
+                background-size: 60px 60px;
+            }
+            
+            #app-container {
+                padding: 1rem;
+            }
+            
+            #home h1 {
+                font-size: 2.5rem;
+            }
+
+            #home .subtext {
+                font-size: 1.2rem;
+            }
+
+            .btn-glitch {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+                width: 90%;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+            
+            #result-role {
+                font-size: 2.5rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- ======================= LOADER ======================= -->
+    <div id="loader">
+        <div id="loader-content">
+            <p>> Connecting to the Dark Grid...</p>
+            <p>> Bypassing NeoCity firewalls...</p>
+            <p>> Accessing The Glitch Syndicate mainframe...</p>
+            <p id="access-granted">> ACCESS GRANTED <span class="cursor"></span></p>
+            <p id="loader-line-final"><span class="cursor"></span></p>
+        </div>
+    </div>
+
+    <!-- ======================= MAIN APP ======================= -->
+    <div id="app-container">
+        
+        <main>
+
+            <!-- ======================= HOME SECTION ======================= -->
+            <section id="home" class="active">
+                <h1>Welcome to The Glitch Syndicate</h1>
+                <p class="subtext">Only the worthy may enter the neon underworld.</p>
+                <div>
+                    <button class="btn-glitch" data-target="quiz">Begin Recruitment Test</button>
+                    <button class="btn-glitch" data-target="about">About The Syndicate</button>
+                </div>
+            </section>
+
+            <!-- ======================= ABOUT SECTION ======================= -->
+            <section id="about">
+                <h2>[ About The Syndicate ]</h2>
+                <p class="lore">
+                    The Glitch Syndicate controls the dark data streams of NeoCity. We trade in stolen memories, encrypted dreams, and forbidden code. We are the ghosts in the machine, the static between worlds. The corporations build walls; we show them walls are just suggestions.
+                </p>
+                <div class="leader-grid">
+                    <div class="leader-card">
+                        <img src="https://placehold.co/150x150/9400D3/00FFFF?text=0x" alt="ZeroVox Avatar">
+                        <h3>ZeroVox</h3>
+                        <p>The Architect. No one knows if they're human or pure code.</p>
+                    </div>
+                    <div class="leader-card">
+                        <img src="https://placehold.co/150x150/FF00FF/00FFFF?text=Nx" alt="Nyx.exe Avatar">
+                        <h3>Nyx.exe</h3>
+                        <p>Our top data runner. Fast, silent, and lethal in the digital plane.</p>
+                    </div>
+                    <div class="leader-card">
+                        <img src="https://placehold.co/150x150/00FFFF/000000?text=Cphr" alt="Cipherline Avatar">
+                        <h3>Cipherline</h3>
+                        <p>Master of encryption. Writes code that can start or stop a war.</p>
+                    </div>
+                    <div class="leader-card">
+                        <img src="https://placehold.co/150x150/FFFFFF/9400D3?text=Ash" alt="Ash Protocol Avatar">
+                        <h3>Ash Protocol</h3>
+                        <p>Street Enforcer. Handles our... "physical network security."</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn-glitch" data-target="home">Back to Mainframe</button>
+                </div>
+            </section>
+
+            <!-- ======================= QUIZ SECTION ======================= -->
+            <section id="quiz">
+                <h2>[ Recruitment Test ]</h2>
+                <form id="quiz-form">
+                    <div class="ui-card question-card">
+                        <h3>1. A data node is locked. Your console flashes 'ACCESS DENIED'. You:</h3>
+                        <div class="options-group">
+                            <input type="radio" id="q1a" name="q1" value="hacker" required>
+                            <label for="q1a">Scan for an unsecured port. There's always a back-door.</label>
+                            
+                            <input type="radio" id="q1b" name="q1" value="runner">
+                            <label for="q1b">Bypass it. Speed is life. Find another route to the payload.</label>
+                            
+                            <input type="radio" id="q1c" name="q1" value="enforcer">
+                            <label for="q1c">Smash the console. Physical access is still access.</label>
+                        </div>
+                    </div>
+
+                    <div class="ui-card question-card">
+                        <h3>2. A rival synth drops a package. A corpo patrol is on the corner. You:</h3>
+                        <div class="options-group">
+                            <input type="radio" id="q2a" name="q2" value="runner" required>
+                            <label for="q2a">Grab it and run. You were built for this.</label>
+                            
+                            <input type="radio" id="q2b" name="q2" value="ghost">
+                            <label for="q2b">Create a distraction. Glitch the patrol's comms and slip by unseen.</label>
+                            
+                            <input type="radio" id="q2c" name="q2" value="enforcer">
+                            <label for="q2c">Ambush the patrol. Take the package and their gear.</label>
+                        </div>
+                    </div>
+                    
+                    <div class="ui-card question-card">
+                        <h3>3. Your ideal loadout is:</h3>
+                        <div class="options-group">
+                            <input type="radio" id="q3a" name="q3" value="hacker" required>
+                            <label for="q3a">A custom neural deck and a line of pure, untraceable code.</label>
+                            
+                            <input type="radio" id="q3b" name="q3" value="enforcer">
+                            <label for="q3b">Chromed fists and a plasma shotgun. Keep it personal.</label>
+
+                            <input type="radio" id="q3c" name="q3" value="ghost">
+                            <label for="q3c">Optical camo, silenced pistol, and a mono-wire for emergencies.</label>
+                        </div>
+                    </div>
+
+                    <div class="ui-card question-card">
+                        <h3>4. The client offers double for a "no witnesses" job. You:</h3>
+                        <div class="options-group">
+                            <input type="radio" id="q4a" name="q4" value="enforcer" required>
+                            <label for="q4a">Accept. Credits are credits. Business is business.</label>
+                            
+                            <input type="radio" id="q4b" name="q4" value="hacker">
+                            <label for="q4b">Refuse. Code is my weapon, not blood. I don't do "wetwork".</label>
+
+                            <input type="radio" id="q4c" name="q4" value="runner" required>
+                                <label for="q4c">Accept, but "no witnesses" just means "be fast enough."</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-glitch">Transmit Answers</button>
+                </form>
+            </section>
+
+            <!-- ======================= RESULT SECTION ======================= -->
+            <section id="result">
+                <h2>Analyzing neural signature...</h2>
+                <h2 style="color: var(--neon-cyan); margin-top: 1rem;">Your profile aligns with:</h2>
+                <div class="ui-card" style="margin-top: 2rem;">
+                    <h1 id="result-role">DATA RUNNER</h1>
+                </div>
+                <p id="result-description" style="max-width: 600px; margin: 1rem auto;"></p>
+                <button class="btn-glitch" data-target="join">Confirm Transmission</button>
+            </section>
+
+            <!-- ======================= JOIN SECTION ======================= -->
+            <section id="join">
+                <div class="ui-card">
+                    <h2>[ Transmission Received ]</h2>
+                    <p>
+                        Your application has been logged in the Syndicate's deep archive.
+                        We know who you are. We know your digital shadow.
+                    </p>
+                    <p>
+                        Await contact via encrypted channel. Do not contact us.
+                    </p>
+                    <button class="btn-glitch" id="fake-upload">Upload DNA Sample (Optional)</button>
+                </div>
+                 <button class="btn-glitch" data-target="home">Return to Mainframe</button>
+            </section>
+
+        </main>
+
+        <footer>
+            <p id="footer-text">© 2199 The Glitch Syndicate | All transmissions monitored by an unknown entity.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const $ = document.querySelector.bind(document);
+            const $$ = document.querySelectorAll.bind(document);
+
+            const loader = $('#loader');
+            const loaderContent = $('#loader-content');
+            const appContainer = $('#app-container');
+            const mainSections = $$('main > section');
+            const quizForm = $('#quiz-form');
+            const resultRole = $('#result-role');
+            const resultDescription = $('#result-description');
+            
+            const roleDescriptions = {
+                'DATA RUNNER': 'You live for the chase. Speed, reflexes, and a neural-linked rig are your tools. You move through data-streams and city streets like a phantom. Your job: get the package, no matter what.',
+                'NEURAL HACKER': 'You are a digital god. The network is your weapon and your playground. Firewalls are puzzles, and corporations are your prey. You fight with code, logic, and pure intellect.',
+                'STREET ENFORCER': 'You are the line between the code and the concrete. Heavily chromed and ready for a fight, you are the muscle. When a data-steal goes wrong, you are the one who gets the team out alive.',
+                'ECHO GHOST': 'You were never here. You specialize in stealth, infiltration, and misdirection. You move unseen, unheard, and leave nothing but whispers and corrupted log files. You are the ultimate spy.'
+            };
+
+            // --- Navigation Logic ---
+            function showSection(sectionId) {
+                mainSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                const activeSection = $(`#${sectionId}`);
+                if(activeSection) {
+                    activeSection.classList.add('active');
+                    // Special case for result/join to use flex
+                    if(sectionId === 'result' || sectionId === 'join') {
+                        activeSection.style.display = 'flex';
+                    }
+                } else {
+                    $('#home').classList.add('active'); // Fallback to home
+                }
+                window.scrollTo(0, 0); // Scroll to top on section change
+            }
+
+            // Use event delegation on document to handle all navigation buttons
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('btn-glitch') && e.target.hasAttribute('data-target')) {
+                    const targetId = e.target.getAttribute('data-target');
+                    showSection(targetId);
+                }
+            });
+
+            // --- Loader/Boot-up Logic ---
+            function typeLine(element, text, delay = 100) {
+                return new Promise(resolve => {
+                    let i = 0;
+                    const cursor = element.querySelector('.cursor');
+                    if (cursor) cursor.remove();
+                    
+                    let interval = setInterval(() => {
+                        if (i < text.length) {
+                            element.innerHTML = text.substring(0, i + 1) + '<span class="cursor"></span>';
+                            i++;
+                        } else {
+                            clearInterval(interval);
+                            // Remove final cursor for this line
+                            const finalCursor = element.querySelector('.cursor');
+                            if(finalCursor) finalCursor.remove();
+                            resolve();
+                        }
+                    }, delay);
+                });
+            }
+
+            async function startLoader() {
+                const lines = loaderContent.querySelectorAll('p');
+                await typeLine(lines[0], '> Connecting to the Dark Grid...', 50);
+                await new Promise(r => setTimeout(r, 500));
+                await typeLine(lines[1], '> Bypassing NeoCity firewalls... (3/5)...', 50);
+                await new Promise(r => setTimeout(r, 700));
+                await typeLine(lines[2], '> Accessing The Glitch Syndicate mainframe...', 50);
+                await new Promise(r => setTimeout(r, 800));
+                
+                lines[3].style.display = 'block'; // Show ACCESS GRANTED
+                
+                await new Promise(r => setTimeout(r, 1500));
+
+                // Fade out loader
+                loader.style.opacity = '0';
+                loader.style.pointerEvents = 'none';
+
+                // Fade in app
+                appContainer.style.display = 'block';
+                setTimeout(() => {
+                    appContainer.style.opacity = '1';
+                    showSection('home'); // Show home section
+                }, 500); // Wait for loader to fade
+            }
+
+            // --- Quiz Logic ---
+            quizForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const formData = new FormData(quizForm);
+                const answers = {
+                    q1: formData.get('q1'),
+                    q2: formData.get('q2'),
+                    q3: formData.get('q3'),
+                    q4: formData.get('q4'),
+                };
+
+                let scores = {
+                    runner: 0,
+                    hacker: 0,
+                    enforcer: 0,
+                    ghost: 0
+                };
+
+                // Q1
+                if (answers.q1 === 'hacker') scores.hacker++;
+                if (answers.q1 === 'runner') scores.runner++;
+                if (answers.q1 === 'enforcer') scores.enforcer++;
+                
+                // Q2
+                if (answers.q2 === 'runner') scores.runner++;
+                if (answers.q2 === 'ghost') scores.ghost++;
+                if (answers.q2 === 'enforcer') scores.enforcer++;
+                
+                // Q3
+                if (answers.q3 === 'hacker') scores.hacker++;
+                if (answers.q3 === 'enforcer') scores.enforcer++;
+                if (answers.q3 === 'ghost') scores.ghost++;
+
+                // Q4
+                if (answers.q4 === 'enforcer') scores.enforcer++;
+                if (answers.q4 === 'hacker') scores.hacker++;
+                if (answers.q4 === 'runner') scores.runner++;
+
+                // Determine result
+                let maxScore = 0;
+                let result = 'DATA RUNNER'; // Default
+
+                for (const role in scores) {
+                    if (scores[role] > maxScore) {
+                        maxScore = scores[role];
+                        if (role === 'runner') result = 'DATA RUNNER';
+                        if (role === 'hacker') result = 'NEURAL HACKER';
+                        if (role === 'enforcer') result = 'STREET ENFORCER';
+                        if (role === 'ghost') result = 'ECHO GHOST';
+                    }
+                }
+                
+                // Handle ties (defaulting to a role)
+                if (maxScore === 0) { result = 'DATA RUNNER'; }
+
+                // Display result
+                resultRole.textContent = result;
+                resultDescription.textContent = roleDescriptions[result];
+                showSection('result');
+            });
+            
+            // --- Fake Upload Button ---
+            $('#fake-upload').addEventListener('click', (e) => {
+                e.target.textContent = 'TRANSMITTING...';
+                e.target.disabled = true;
+                setTimeout(() => {
+                    e.target.textContent = '...DNA SAMPLE VERIFIED.';
+                    e.target.style.background = 'var(--neon-magenta)';
+                    e.target.style.color = 'var(--dark-bg)';
+                }, 2000);
+            });
+
+            // --- Easter Egg ---
+            let keySequence = '';
+            document.addEventListener('keydown', (e) => {
+                keySequence += e.key;
+                if (keySequence.includes('/access')) {
+                    keySequence = ''; // Reset
+                    const footer = $('#footer-text');
+                    footer.textContent = 'HIDDEN PROTOCOL ACTIVATED: //Welcome, true_believer.exe//';
+                    footer.style.color = 'var(--neon-cyan)';
+                    footer.style.textShadow = 'var(--glow-cyan)';
+                }
+                // Limit sequence length
+                if (keySequence.length > 20) {
+                    keySequence = keySequence.slice(-10);
+                }
+            });
+
+            // --- Init ---
+            window.onload = startLoader;
+
+        });
+    </script>
+</body>
+</html>
