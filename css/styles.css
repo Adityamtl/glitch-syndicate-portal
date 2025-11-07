@@ -1,0 +1,649 @@
+/* ========================================
+   ROOT & GLOBAL STYLES
+   ========================================
+*/
+:root {
+  --neon-purple: #9400d3;
+  --neon-cyan: #00ffff;
+  --neon-magenta: #ff00ff;
+  --dark-bg: #0b021a;
+  --text-color: #d1d1d1;
+
+  --glow-purple: 0 0 5px var(--neon-purple), 0 0 10px var(--neon-purple),
+    0 0 20px var(--neon-purple), 0 0 40px var(--neon-magenta),
+    0 0 80px var(--neon-magenta);
+  --glow-cyan: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan), 0 0 40px #00aaff, 0 0 80px #00aaff;
+
+  --font-heading: "Orbitron", sans-serif;
+  --font-body: "Share Tech Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+body {
+  /* Animated grid background */
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 255, 255, 0.1) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: bg-pan 30s linear infinite;
+}
+
+@keyframes bg-pan {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -400px -400px;
+  }
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+p {
+  line-height: 1.7;
+  font-size: 1.1rem;
+  max-width: 650px;
+  margin: 0 auto 1rem auto;
+}
+
+/* ========================================
+   LOADING SCREEN
+   ========================================
+*/
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease-out;
+}
+
+#loader-content {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  width: 80%;
+  max-width: 600px;
+}
+
+#loader-content p {
+  margin-bottom: 0.5rem;
+}
+
+#loader-content .cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2rem;
+  background: var(--neon-cyan);
+  animation: blink 0.7s infinite;
+}
+
+#access-granted {
+  display: none;
+  font-size: 2rem;
+  font-family: var(--font-heading);
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-purple);
+  animation: flicker 1.5s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   MAIN APP & LAYOUT
+   ========================================
+*/
+#app-container {
+  display: none; /* Hidden by default */
+  opacity: 0;
+  transition: opacity 1.5s ease-in;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+}
+
+/* CRT/Glitch overlay effect */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.5) 0,
+    rgba(0, 0, 0, 0.5) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  background-size: 100% 3px;
+  opacity: 0.3;
+  z-index: 998;
+  animation: scanlines 5s linear infinite;
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: rgba(10, 0, 20, 0.1);
+  z-index: 997;
+  animation: glitch-flicker 8s steps(1) infinite;
+}
+
+@keyframes glitch-flicker {
+  0% {
+    opacity: 0.1;
+  }
+  5% {
+    opacity: 0.3;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  22% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+#app-container main > section {
+  display: none; /* All sections hidden by default */
+  min-height: 70vh;
+  padding: 2rem 0;
+  animation: fadeIn 0.5s ease-in;
+}
+
+#app-container main > section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   UI ELEMENTS (BUTTONS, CARDS)
+   ========================================
+*/
+.btn-glitch {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--neon-cyan);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: transparent;
+  border: 2px solid var(--neon-cyan);
+  padding: 1rem 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 10px 0 var(--neon-cyan), 0 0 10px 0 var(--neon-cyan);
+  margin: 1rem 0.5rem;
+  display: inline-block;
+}
+
+.btn-glitch:hover {
+  color: var(--dark-bg);
+  background: var(--neon-cyan);
+  box-shadow: 0 0 20px 0 var(--neon-cyan), 0 0 40px 0 var(--neon-cyan);
+}
+
+.btn-glitch::before,
+.btn-glitch::after {
+  content: " ";
+  position: absolute;
+  background: var(--dark-bg);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.btn-glitch:hover::before {
+  transform: translateX(5px);
+  opacity: 0.5;
+  animation: glitch-btn 0.3s infinite;
+}
+
+.btn-glitch:hover::after {
+  transform: translateX(-5px);
+  opacity: 0.5;
+  animation: glitch-btn 0.3s infinite reverse;
+}
+
+@keyframes glitch-btn {
+  0% {
+    clip-path: inset(0 0 50% 0);
+  }
+  50% {
+    clip-path: inset(50% 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 50% 0);
+  }
+}
+
+.ui-card {
+  background: rgba(15, 0, 30, 0.8);
+  border: 1px solid var(--neon-purple);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: inset 0 0 15px var(--neon-purple), 0 0 10px var(--neon-purple);
+  backdrop-filter: blur(5px);
+}
+
+/* ========================================
+   HOME SECTION
+   ========================================
+*/
+#home {
+  display: flex; /* Active by default in JS */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 80vh;
+}
+
+#home h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: flicker 3s infinite alternate;
+}
+
+#home .subtext {
+  font-size: 1.5rem;
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-purple);
+  margin-bottom: 2rem;
+}
+
+@keyframes flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow: var(--glow-cyan);
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+    opacity: 0.7;
+  }
+}
+
+/* ========================================
+   ABOUT SECTION
+   ========================================
+*/
+#about h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+#about .lore {
+  text-align: center;
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  color: var(--neon-magenta);
+}
+
+.leader-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.leader-card {
+  background: rgba(15, 0, 30, 0.8);
+  border: 1px solid var(--neon-purple);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: inset 0 0 10px var(--neon-purple);
+  transition: all 0.3s ease;
+}
+
+.leader-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px var(--neon-purple);
+}
+
+.leader-card img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid var(--neon-cyan);
+  margin-bottom: 1rem;
+  filter: grayscale(80%) contrast(120%);
+}
+
+.leader-card h3 {
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-purple);
+  margin-bottom: 0.5rem;
+}
+
+.leader-card p {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 0;
+}
+
+/* ========================================
+   QUIZ SECTION
+   ========================================
+*/
+#quiz h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.question-card {
+  margin-bottom: 2rem;
+}
+
+.question-card h3 {
+  font-size: 1.5rem;
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-purple);
+  margin-bottom: 1rem;
+}
+
+.options-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.options-group label {
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border: 1px solid var(--neon-cyan);
+  background: rgba(0, 50, 50, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.options-group label:hover {
+  background: rgba(0, 100, 100, 0.5);
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.options-group input[type="radio"] {
+  display: none;
+}
+
+.options-group input[type="radio"]:checked + label {
+  background: var(--neon-cyan);
+  color: var(--dark-bg);
+  text-shadow: none;
+  box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+#quiz-form button {
+  display: block;
+  margin: 2rem auto 0 auto;
+}
+
+/* ========================================
+   RESULT & JOIN SECTIONS
+   ========================================
+*/
+#result,
+#join {
+  text-align: center;
+  display: none; /* Handled by JS */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#result h2 {
+  font-size: 2rem;
+  color: var(--text-color);
+  text-shadow: none;
+  margin-bottom: 1.5rem;
+}
+
+#result-role {
+  font-size: 3.5rem;
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-purple);
+  animation: glitch-text 2s steps(4) infinite;
+}
+
+@keyframes glitch-text {
+  0% {
+    text-shadow: var(--glow-purple);
+    transform: skew(0);
+    clip-path: inset(80% 0 0 0);
+  }
+  10% {
+    transform: skew(0.5deg, -0.2deg);
+    clip-path: inset(20% 0 50% 0);
+  }
+  30% {
+    transform: skew(0.8deg, 0.3deg);
+    clip-path: inset(60% 0 10% 0);
+  }
+  50% {
+    text-shadow: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan);
+    transform: skew(-1deg, -0.5deg);
+    clip-path: inset(10% 0 60% 0);
+  }
+  70% {
+    transform: skew(0.2deg, 0.4deg);
+    clip-path: inset(40% 0 30% 0);
+  }
+  90% {
+    transform: skew(-0.7deg, -0.1deg);
+    clip-path: inset(70% 0 5% 0);
+  }
+  100% {
+    text-shadow: var(--glow-purple);
+    transform: skew(0);
+    clip-path: inset(80% 0 0 0);
+  }
+}
+
+#join h2 {
+  font-size: 2.5rem;
+  color: var(--neon-cyan);
+  margin-bottom: 1.5rem;
+}
+
+#join p {
+  color: var(--neon-magenta);
+  font-size: 1.3rem;
+}
+
+/* ========================================
+   FOOTER
+   ========================================
+*/
+footer {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-top: 1px dashed var(--neon-purple);
+  color: var(--neon-purple);
+  text-shadow: 0 0 5px var(--neon-purple);
+  animation: flicker 5s infinite alternate;
+}
+
+/* ========================================
+   ABOUT PAGE SPECIFIC STYLES
+   ========================================
+*/
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+  animation: fadeIn 1s ease-in;
+}
+
+header {
+  text-align: center;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: flicker 3s infinite alternate;
+}
+
+.about-section {
+  margin-bottom: 3rem;
+}
+
+.about-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.lore {
+  text-align: center;
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  color: var(--neon-magenta);
+  text-shadow: 0 0 10px var(--neon-magenta);
+}
+
+.leader-grid {
+  margin-bottom: 3rem;
+}
+
+.leader-card {
+  padding: 1.5rem;
+}
+
+.nav-section {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* ========================================
+   RESPONSIVENESS
+   ========================================
+*/
+@media (max-width: 768px) {
+  body {
+    background-size: 60px 60px;
+  }
+
+  #app-container,
+  .container {
+    padding: 1rem;
+  }
+
+  #home h1,
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  #home .subtext {
+    font-size: 1.2rem;
+  }
+
+  .btn-glitch {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  #result-role {
+    font-size: 2.5rem;
+  }
+}

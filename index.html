@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ACCESS GRANTED: The Glitch Syndicate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Share+Tech+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- ======================= LOADER ======================= -->
+    <div id="loader">
+      <div id="loader-content">
+        <p>> Connecting to the Dark Grid...</p>
+        <p>> Bypassing NeoCity firewalls...</p>
+        <p>> Accessing The Glitch Syndicate mainframe...</p>
+        <p id="access-granted">> ACCESS GRANTED <span class="cursor"></span></p>
+        <p id="loader-line-final"><span class="cursor"></span></p>
+      </div>
+    </div>
+
+    <!-- ======================= MAIN APP ======================= -->
+    <div id="app-container">
+      <main>
+        <!-- ======================= HOME SECTION ======================= -->
+        <section id="home" class="active">
+          <h1>Welcome to The Glitch Syndicate</h1>
+          <p class="subtext">Only the worthy may enter the neon underworld.</p>
+          <div>
+            <button class="btn-glitch" data-target="quiz">
+              Begin Recruitment Test
+            </button>
+            <a href="about.html" class="btn-glitch">About The Syndicate</a>
+          </div>
+        </section>
+
+        <!-- ======================= ABOUT SECTION ======================= -->
+        <section id="about">
+          <h2>[ About The Syndicate ]</h2>
+          <p class="lore">
+            The Glitch Syndicate controls the dark data streams of NeoCity. We
+            trade in stolen memories, encrypted dreams, and forbidden code. We
+            are the ghosts in the machine, the static between worlds. The
+            corporations build walls; we show them walls are just suggestions.
+          </p>
+          <div class="leader-grid">
+            <div class="leader-card">
+              <img
+                src="https://placehold.co/150x150/9400D3/00FFFF?text=0x"
+                alt="ZeroVox Avatar"
+              />
+              <h3>ZeroVox</h3>
+              <p>The Architect. No one knows if they're human or pure code.</p>
+            </div>
+            <div class="leader-card">
+              <img
+                src="https://placehold.co/150x150/FF00FF/00FFFF?text=Nx"
+                alt="Nyx.exe Avatar"
+              />
+              <h3>Nyx.exe</h3>
+              <p>
+                Our top data runner. Fast, silent, and lethal in the digital
+                plane.
+              </p>
+            </div>
+            <div class="leader-card">
+              <img
+                src="https://placehold.co/150x150/00FFFF/000000?text=Cphr"
+                alt="Cipherline Avatar"
+              />
+              <h3>Cipherline</h3>
+              <p>
+                Master of encryption. Writes code that can start or stop a war.
+              </p>
+            </div>
+            <div class="leader-card">
+              <img
+                src="https://placehold.co/150x150/FFFFFF/9400D3?text=Ash"
+                alt="Ash Protocol Avatar"
+              />
+              <h3>Ash Protocol</h3>
+              <p>
+                Street Enforcer. Handles our... "physical network security."
+              </p>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 2rem">
+            <button class="btn-glitch" data-target="home">
+              Back to Mainframe
+            </button>
+          </div>
+        </section>
+
+        <!-- ======================= QUIZ SECTION ======================= -->
+        <section id="quiz">
+          <h2>[ Recruitment Test ]</h2>
+          <form id="quiz-form">
+            <div class="ui-card question-card">
+              <h3>
+                1. A data node is locked. Your console flashes 'ACCESS DENIED'.
+                You:
+              </h3>
+              <div class="options-group">
+                <input
+                  type="radio"
+                  id="q1a"
+                  name="q1"
+                  value="hacker"
+                  required
+                />
+                <label for="q1a"
+                  >Scan for an unsecured port. There's always a
+                  back-door.</label
+                >
+
+                <input type="radio" id="q1b" name="q1" value="runner" />
+                <label for="q1b"
+                  >Bypass it. Speed is life. Find another route to the
+                  payload.</label
+                >
+
+                <input type="radio" id="q1c" name="q1" value="enforcer" />
+                <label for="q1c"
+                  >Smash the console. Physical access is still access.</label
+                >
+              </div>
+            </div>
+
+            <div class="ui-card question-card">
+              <h3>
+                2. A rival synth drops a package. A corpo patrol is on the
+                corner. You:
+              </h3>
+              <div class="options-group">
+                <input
+                  type="radio"
+                  id="q2a"
+                  name="q2"
+                  value="runner"
+                  required
+                />
+                <label for="q2a"
+                  >Grab it and run. You were built for this.</label
+                >
+
+                <input type="radio" id="q2b" name="q2" value="ghost" />
+                <label for="q2b"
+                  >Create a distraction. Glitch the patrol's comms and slip by
+                  unseen.</label
+                >
+
+                <input type="radio" id="q2c" name="q2" value="enforcer" />
+                <label for="q2c"
+                  >Ambush the patrol. Take the package and their gear.</label
+                >
+              </div>
+            </div>
+
+            <div class="ui-card question-card">
+              <h3>3. Your ideal loadout is:</h3>
+              <div class="options-group">
+                <input
+                  type="radio"
+                  id="q3a"
+                  name="q3"
+                  value="hacker"
+                  required
+                />
+                <label for="q3a"
+                  >A custom neural deck and a line of pure, untraceable
+                  code.</label
+                >
+
+                <input type="radio" id="q3b" name="q3" value="enforcer" />
+                <label for="q3b"
+                  >Chromed fists and a plasma shotgun. Keep it personal.</label
+                >
+
+                <input type="radio" id="q3c" name="q3" value="ghost" />
+                <label for="q3c"
+                  >Optical camo, silenced pistol, and a mono-wire for
+                  emergencies.</label
+                >
+              </div>
+            </div>
+
+            <div class="ui-card question-card">
+              <h3>
+                4. The client offers double for a "no witnesses" job. You:
+              </h3>
+              <div class="options-group">
+                <input
+                  type="radio"
+                  id="q4a"
+                  name="q4"
+                  value="enforcer"
+                  required
+                />
+                <label for="q4a"
+                  >Accept. Credits are credits. Business is business.</label
+                >
+
+                <input type="radio" id="q4b" name="q4" value="hacker" />
+                <label for="q4b"
+                  >Refuse. Code is my weapon, not blood. I don't do
+                  "wetwork".</label
+                >
+
+                <input
+                  type="radio"
+                  id="q4c"
+                  name="q4"
+                  value="runner"
+                  required
+                />
+                <label for="q4c"
+                  >Accept, but "no witnesses" just means "be fast
+                  enough."</label
+                >
+              </div>
+            </div>
+
+            <button type="submit" class="btn-glitch">Transmit Answers</button>
+          </form>
+        </section>
+
+        <!-- ======================= RESULT SECTION ======================= -->
+        <section id="result">
+          <h2>Analyzing neural signature...</h2>
+          <h2 style="color: var(--neon-cyan); margin-top: 1rem">
+            Your profile aligns with:
+          </h2>
+          <div class="ui-card" style="margin-top: 2rem">
+            <h1 id="result-role">DATA RUNNER</h1>
+          </div>
+          <p
+            id="result-description"
+            style="max-width: 600px; margin: 1rem auto"
+          ></p>
+          <button class="btn-glitch" data-target="join">
+            Confirm Transmission
+          </button>
+        </section>
+
+        <!-- ======================= JOIN SECTION ======================= -->
+        <section id="join">
+          <div class="ui-card">
+            <h2>[ Transmission Received ]</h2>
+            <p>
+              Your application has been logged in the Syndicate's deep archive.
+              We know who you are. We know your digital shadow.
+            </p>
+            <p>Await contact via encrypted channel. Do not contact us.</p>
+            <button class="btn-glitch" id="fake-upload">
+              Upload DNA Sample (Optional)
+            </button>
+          </div>
+          <button class="btn-glitch" data-target="home">
+            Return to Mainframe
+          </button>
+        </section>
+      </main>
+
+      <footer>
+        <p id="footer-text">
+          © 2199 The Glitch Syndicate | All transmissions monitored by an
+          unknown entity.
+        </p>
+      </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
