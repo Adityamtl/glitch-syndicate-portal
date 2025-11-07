@@ -204,6 +204,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Init ---
   if (loader) {
-    window.onload = startLoader;
+    // Check if user has already seen the loader in this session
+    const hasSeenLoader = sessionStorage.getItem("glitchSyndicateLoaderSeen");
+
+    if (hasSeenLoader) {
+      // Skip loader, show app immediately
+      loader.style.display = "none";
+      appContainer.style.display = "block";
+      appContainer.style.opacity = "1";
+      showSection("home");
+    } else {
+      // Show loader for first time
+      window.onload = () => {
+        startLoader();
+        sessionStorage.setItem("glitchSyndicateLoaderSeen", "true");
+      };
+    }
   }
 });
