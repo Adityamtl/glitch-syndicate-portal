@@ -168,28 +168,7 @@ Each component is self-contained and can be easily modified in `src/components/`
 - Floating neon particles
 - Glitch flicker overlay
 
-## 📦 Deployment
-
-### Static Hosting (Recommended)
-
-Perfect for:
-
-- Netlify
-- Vercel
-- GitHub Pages
-- Cloudflare Pages
-
-Simply run `npm run build` and deploy the `dist` folder.
-
-### Netlify Deploy Button
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start)
-
-### Vercel Deploy Button
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 **Issue**: Tailwind classes not working
 
@@ -202,18 +181,6 @@ Simply run `npm run build` and deploy the `dist` folder.
 **Issue**: Loading screen won't show again
 
 - **Solution**: Clear sessionStorage or use incognito mode
-
-## 🎯 Future Enhancements
-
-Potential additions:
-
-- [ ] Sound effects on button clicks
-- [ ] Music toggle
-- [ ] More quiz questions
-- [ ] Save results to localStorage
-- [ ] Social media sharing
-- [ ] Multiple language support
-- [ ] Dark/Light mode toggle (currently dark only)
 
 ## 📄 License
 
