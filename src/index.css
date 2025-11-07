@@ -6,8 +6,10 @@
   body {
     @apply bg-dark-bg text-gray-300 font-tech overflow-x-hidden;
   }
-  
-  h1, h2, h3 {
+
+  h1,
+  h2,
+  h3 {
     @apply font-orbitron;
   }
 }
@@ -16,23 +18,24 @@
   .text-glow-cyan {
     text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
   }
-  
+
   .text-glow-purple {
-    text-shadow: 0 0 5px #9400d3, 0 0 10px #9400d3, 0 0 20px #9400d3, 0 0 40px #ff00ff;
+    text-shadow: 0 0 5px #9400d3, 0 0 10px #9400d3, 0 0 20px #9400d3,
+      0 0 40px #ff00ff;
   }
-  
+
   .text-glow-magenta {
     text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
   }
-  
+
   .border-glow-cyan {
     box-shadow: inset 0 0 10px 0 #00ffff, 0 0 10px 0 #00ffff;
   }
-  
+
   .border-glow-purple {
     box-shadow: inset 0 0 15px #9400d3, 0 0 10px #9400d3;
   }
-  
+
   /* CRT scanlines effect */
   .scanlines::after {
     content: "";
@@ -54,7 +57,7 @@
     z-index: 9998;
     animation: scanlines 5s linear infinite;
   }
-  
+
   /* Glitch overlay */
   .glitch-overlay::before {
     content: "";
@@ -68,16 +71,28 @@
     z-index: 9997;
     animation: glitchFlicker 8s steps(1) infinite;
   }
-  
+
   @keyframes glitchFlicker {
-    0%, 10%, 22%, 30%, 100% { opacity: 0.1; }
-    5%, 20% { opacity: 0.3; }
+    0%,
+    10%,
+    22%,
+    30%,
+    100% {
+      opacity: 0.1;
+    }
+    5%,
+    20% {
+      opacity: 0.3;
+    }
   }
-  
+
   /* Animated grid background */
   .grid-bg {
-    background-image: 
-      linear-gradient(to right, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 255, 255, 0.1) 1px,
+        transparent 1px
+      ),
       linear-gradient(to bottom, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 40px 40px;
     animation: bgPan 30s linear infinite;

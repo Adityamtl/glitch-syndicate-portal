@@ -5,12 +5,14 @@ This directory contains both the original static HTML version and the new React 
 ## Files Overview
 
 ### Original Static Site
+
 - `index.html` - Original static homepage
 - `about.html` - Original about page
 - `css/styles.css` - Original styles
 - `js/app.js` - Original JavaScript
 
 ### React Application
+
 - `index-react.html` - React app HTML template
 - `src/` - React source code
 - `package.json` - Dependencies

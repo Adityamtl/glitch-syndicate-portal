@@ -1,36 +1,39 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { GlitchButton } from './HeroSection';
+import React from "react";
+import { motion } from "framer-motion";
+import { GlitchButton } from "./HeroSection";
 
 const InnerCircle = ({ onNavigate }) => {
   const leaders = [
     {
-      name: 'ZeroVox',
-      role: 'The Architect',
-      description: 'No one knows if they\'re human or pure code.',
-      avatar: 'https://placehold.co/150x150/9400D3/00FFFF?text=0x',
-      color: 'cyan',
+      name: "ZeroVox",
+      role: "The Architect",
+      description: "No one knows if they're human or pure code.",
+      avatar: "/asset/img1.png",
+      color: "cyan",
     },
     {
-      name: 'Nyx.exe',
-      role: 'Data Runner',
-      description: 'Our top data runner. Fast, silent, and lethal in the digital plane.',
-      avatar: 'https://placehold.co/150x150/FF00FF/00FFFF?text=Nx',
-      color: 'magenta',
+      name: "Nyx.exe",
+      role: "Data Runner",
+      description:
+        "Our top data runner. Fast, silent, and lethal in the digital plane.",
+      avatar: "/asset/img2.png",
+      color: "magenta",
     },
     {
-      name: 'Cipherline',
-      role: 'Encryption Master',
-      description: 'Master of encryption. Writes code that can start or stop a war.',
-      avatar: 'https://placehold.co/150x150/00FFFF/000000?text=Cphr',
-      color: 'cyan',
+      name: "Cipherline",
+      role: "Encryption Master",
+      description:
+        "Master of encryption. Writes code that can start or stop a war.",
+      avatar: "/asset/img3.png",
+      color: "cyan",
     },
     {
-      name: 'Ash Protocol',
-      role: 'Street Enforcer',
-      description: 'Street Enforcer. Handles our... "physical network security."',
-      avatar: 'https://placehold.co/150x150/FFFFFF/9400D3?text=Ash',
-      color: 'purple',
+      name: "Ash Protocol",
+      role: "Street Enforcer",
+      description:
+        'Street Enforcer. Handles our... "physical network security."',
+      avatar: "/asset/img4.png",
+      color: "purple",
     },
   ];
 
@@ -77,9 +80,9 @@ const InnerCircle = ({ onNavigate }) => {
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           The Glitch Syndicate controls the dark data streams of NeoCity. We
-          trade in stolen memories, encrypted dreams, and forbidden code. We
-          are the ghosts in the machine, the static between worlds. The
-          corporations build walls; we show them walls are just suggestions.
+          trade in stolen memories, encrypted dreams, and forbidden code. We are
+          the ghosts in the machine, the static between worlds. The corporations
+          build walls; we show them walls are just suggestions.
         </motion.p>
 
         <motion.div
@@ -99,7 +102,7 @@ const InnerCircle = ({ onNavigate }) => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1, duration: 0.8 }}
         >
-          <GlitchButton onClick={() => onNavigate('home')}>
+          <GlitchButton onClick={() => onNavigate("home")}>
             Back to Mainframe
           </GlitchButton>
         </motion.div>
@@ -109,19 +112,25 @@ const InnerCircle = ({ onNavigate }) => {
 };
 
 const LeaderCard = ({ leader, variants }) => {
-  const glowClass = leader.color === 'cyan' ? 'border-neon-cyan' : leader.color === 'magenta' ? 'border-neon-magenta' : 'border-neon-purple';
-  
+  const glowClass =
+    leader.color === "cyan"
+      ? "border-neon-cyan"
+      : leader.color === "magenta"
+      ? "border-neon-magenta"
+      : "border-neon-purple";
+
   return (
     <motion.div
       className={`bg-dark-purple border-2 ${glowClass} p-6 text-center backdrop-blur-sm border-glow-purple`}
       variants={variants}
-      whileHover={{ 
+      whileHover={{
         y: -10,
-        boxShadow: leader.color === 'cyan' 
-          ? '0 0 20px #00ffff, 0 0 40px #00ffff'
-          : leader.color === 'magenta'
-          ? '0 0 20px #ff00ff, 0 0 40px #ff00ff'
-          : '0 0 20px #9400d3, 0 0 40px #9400d3',
+        boxShadow:
+          leader.color === "cyan"
+            ? "0 0 20px #00ffff, 0 0 40px #00ffff"
+            : leader.color === "magenta"
+            ? "0 0 20px #ff00ff, 0 0 40px #ff00ff"
+            : "0 0 20px #9400d3, 0 0 40px #9400d3",
         scale: 1.05,
       }}
       transition={{ duration: 0.3 }}
@@ -134,11 +143,11 @@ const LeaderCard = ({ leader, variants }) => {
         <img
           src={leader.avatar}
           alt={`${leader.name} Avatar`}
-          className={`w-36 h-36 rounded-full border-4 ${glowClass} grayscale contrast-125 mx-auto`}
+          className={`w-36 h-36 rounded-full border-4 ${glowClass} object-cover mx-auto`}
         />
         <motion.div
           className={`absolute inset-0 rounded-full border-4 ${glowClass} opacity-0`}
-          whileHover={{ 
+          whileHover={{
             opacity: [0, 0.5, 0],
             scale: [1, 1.2, 1],
           }}
@@ -149,11 +158,11 @@ const LeaderCard = ({ leader, variants }) => {
       <h3 className="text-2xl font-orbitron text-neon-magenta text-glow-magenta mb-2">
         {leader.name}
       </h3>
-      
+
       <p className="text-sm text-neon-cyan mb-3 uppercase tracking-wider">
         {leader.role}
       </p>
-      
+
       <p className="text-gray-400 text-sm leading-relaxed">
         {leader.description}
       </p>

@@ -1,39 +1,43 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { GlitchButton } from './HeroSection';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { GlitchButton } from "./HeroSection";
 
 const ResultSection = ({ result, onNavigate }) => {
-  const [uploadStatus, setUploadStatus] = useState('idle');
+  const [uploadStatus, setUploadStatus] = useState("idle");
 
   const roleData = {
     runner: {
-      title: 'DATA RUNNER',
-      description: 'You live for the chase. Speed, reflexes, and a neural-linked rig are your tools. You move through data-streams and city streets like a phantom. Your job: get the package, no matter what.',
-      color: 'cyan',
+      title: "DATA RUNNER",
+      description:
+        "You live for the chase. Speed, reflexes, and a neural-linked rig are your tools. You move through data-streams and city streets like a phantom. Your job: get the package, no matter what.",
+      color: "cyan",
     },
     hacker: {
-      title: 'NEURAL HACKER',
-      description: 'You are a digital god. The network is your weapon and your playground. Firewalls are puzzles, and corporations are your prey. You fight with code, logic, and pure intellect.',
-      color: 'purple',
+      title: "NEURAL HACKER",
+      description:
+        "You are a digital god. The network is your weapon and your playground. Firewalls are puzzles, and corporations are your prey. You fight with code, logic, and pure intellect.",
+      color: "purple",
     },
     enforcer: {
-      title: 'STREET ENFORCER',
-      description: 'You are the line between the code and the concrete. Heavily chromed and ready for a fight, you are the muscle. When a data-steal goes wrong, you are the one who gets the team out alive.',
-      color: 'magenta',
+      title: "STREET ENFORCER",
+      description:
+        "You are the line between the code and the concrete. Heavily chromed and ready for a fight, you are the muscle. When a data-steal goes wrong, you are the one who gets the team out alive.",
+      color: "magenta",
     },
     ghost: {
-      title: 'ECHO GHOST',
-      description: 'You were never here. You specialize in stealth, infiltration, and misdirection. You move unseen, unheard, and leave nothing but whispers and corrupted log files. You are the ultimate spy.',
-      color: 'cyan',
+      title: "ECHO GHOST",
+      description:
+        "You were never here. You specialize in stealth, infiltration, and misdirection. You move unseen, unheard, and leave nothing but whispers and corrupted log files. You are the ultimate spy.",
+      color: "cyan",
     },
   };
 
   const currentRole = roleData[result] || roleData.runner;
 
   const handleUpload = () => {
-    setUploadStatus('uploading');
+    setUploadStatus("uploading");
     setTimeout(() => {
-      setUploadStatus('verified');
+      setUploadStatus("verified");
     }, 2000);
   };
 
@@ -67,20 +71,50 @@ const ResultSection = ({ result, onNavigate }) => {
           className="bg-dark-purple border-2 border-neon-magenta p-8 mb-8 border-glow-purple backdrop-blur-sm"
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8, type: 'spring' }}
+          transition={{ delay: 0.6, duration: 0.8, type: "spring" }}
         >
           <motion.h1
             className={`
               text-4xl md:text-6xl font-orbitron mb-6
-              ${currentRole.color === 'cyan' ? 'text-neon-cyan text-glow-cyan' : ''}
-              ${currentRole.color === 'purple' ? 'text-neon-purple text-glow-purple' : ''}
-              ${currentRole.color === 'magenta' ? 'text-neon-magenta text-glow-magenta' : ''}
+              ${
+                currentRole.color === "cyan"
+                  ? "text-neon-cyan text-glow-cyan"
+                  : ""
+              }
+              ${
+                currentRole.color === "purple"
+                  ? "text-neon-purple text-glow-purple"
+                  : ""
+              }
+              ${
+                currentRole.color === "magenta"
+                  ? "text-neon-magenta text-glow-magenta"
+                  : ""
+              }
             `}
             animate={{
               textShadow: [
-                `0 0 5px ${currentRole.color === 'cyan' ? '#00ffff' : currentRole.color === 'purple' ? '#9400d3' : '#ff00ff'}`,
-                `0 0 20px ${currentRole.color === 'cyan' ? '#00ffff' : currentRole.color === 'purple' ? '#9400d3' : '#ff00ff'}`,
-                `0 0 5px ${currentRole.color === 'cyan' ? '#00ffff' : currentRole.color === 'purple' ? '#9400d3' : '#ff00ff'}`,
+                `0 0 5px ${
+                  currentRole.color === "cyan"
+                    ? "#00ffff"
+                    : currentRole.color === "purple"
+                    ? "#9400d3"
+                    : "#ff00ff"
+                }`,
+                `0 0 20px ${
+                  currentRole.color === "cyan"
+                    ? "#00ffff"
+                    : currentRole.color === "purple"
+                    ? "#9400d3"
+                    : "#ff00ff"
+                }`,
+                `0 0 5px ${
+                  currentRole.color === "cyan"
+                    ? "#00ffff"
+                    : currentRole.color === "purple"
+                    ? "#9400d3"
+                    : "#ff00ff"
+                }`,
               ],
             }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -116,7 +150,7 @@ const ResultSection = ({ result, onNavigate }) => {
               Await contact via encrypted channel. Do not contact us.
             </p>
 
-            {uploadStatus === 'idle' && (
+            {uploadStatus === "idle" && (
               <motion.div className="mt-6">
                 <GlitchButton onClick={handleUpload} secondary>
                   Upload DNA Sample (Optional)
@@ -124,7 +158,7 @@ const ResultSection = ({ result, onNavigate }) => {
               </motion.div>
             )}
 
-            {uploadStatus === 'uploading' && (
+            {uploadStatus === "uploading" && (
               <motion.p
                 className="text-neon-cyan text-glow-cyan mt-6 text-lg"
                 initial={{ opacity: 0 }}
@@ -140,7 +174,7 @@ const ResultSection = ({ result, onNavigate }) => {
               </motion.p>
             )}
 
-            {uploadStatus === 'verified' && (
+            {uploadStatus === "verified" && (
               <motion.p
                 className="text-neon-magenta text-glow-magenta mt-6 text-lg font-bold"
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -151,7 +185,7 @@ const ResultSection = ({ result, onNavigate }) => {
             )}
           </div>
 
-          <GlitchButton onClick={() => onNavigate('home')}>
+          <GlitchButton onClick={() => onNavigate("home")}>
             Return to Mainframe
           </GlitchButton>
         </motion.div>

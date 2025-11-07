@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   const [easterEggActive, setEasterEggActive] = useState(false);
-  const [keySequence, setKeySequence] = useState('');
+  const [keySequence, setKeySequence] = useState("");
 
   useEffect(() => {
     const handleKeyPress = (e) => {
-      setKeySequence(prev => {
+      setKeySequence((prev) => {
         const newSeq = (prev + e.key).slice(-7);
-        if (newSeq.includes('/access')) {
+        if (newSeq.includes("/access")) {
           setEasterEggActive(true);
         }
         return newSeq;
       });
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
+    window.addEventListener("keydown", handleKeyPress);
+    return () => window.removeEventListener("keydown", handleKeyPress);
   }, []);
 
   return (
@@ -30,24 +30,28 @@ const Footer = () => {
       <motion.p
         className={`
           font-tech text-sm md:text-base
-          ${easterEggActive 
-            ? 'text-neon-cyan text-glow-cyan' 
-            : 'text-neon-purple animate-flicker'
+          ${
+            easterEggActive
+              ? "text-neon-cyan text-glow-cyan"
+              : "text-neon-purple animate-flicker"
           }
         `}
-        animate={!easterEggActive ? {
-          textShadow: [
-            '0 0 5px #9400d3',
-            '0 0 10px #9400d3, 0 0 20px #9400d3',
-            '0 0 5px #9400d3',
-          ],
-        } : {}}
+        animate={
+          !easterEggActive
+            ? {
+                textShadow: [
+                  "0 0 5px #9400d3",
+                  "0 0 10px #9400d3, 0 0 20px #9400d3",
+                  "0 0 5px #9400d3",
+                ],
+              }
+            : {}
+        }
         transition={{ duration: 5, repeat: Infinity }}
       >
-        {easterEggActive 
-          ? 'HIDDEN PROTOCOL ACTIVATED: //Welcome, true_believer.exe//'
-          : '© 2199 The Glitch Syndicate | All transmissions monitored by an unknown entity.'
-        }
+        {easterEggActive
+          ? "HIDDEN PROTOCOL ACTIVATED: //Welcome, true_believer.exe//"
+          : "© 2199 The Glitch Syndicate | All transmissions monitored by an unknown entity."}
       </motion.p>
 
       {/* Hint for easter egg */}
@@ -65,8 +69,12 @@ const Footer = () => {
       {/* Decorative corner brackets */}
       <div className="absolute top-0 left-4 text-neon-purple text-2xl">╔</div>
       <div className="absolute top-0 right-4 text-neon-purple text-2xl">╗</div>
-      <div className="absolute bottom-0 left-4 text-neon-purple text-2xl">╚</div>
-      <div className="absolute bottom-0 right-4 text-neon-purple text-2xl">╝</div>
+      <div className="absolute bottom-0 left-4 text-neon-purple text-2xl">
+        ╚
+      </div>
+      <div className="absolute bottom-0 right-4 text-neon-purple text-2xl">
+        ╝
+      </div>
     </motion.footer>
   );
 };

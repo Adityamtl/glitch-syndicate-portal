@@ -54,6 +54,7 @@ App.jsx (Main Container)
 ## Animation Timeline
 
 ### Initial Load
+
 ```
 0.0s  LoadingScreen appears (if first visit)
 0.0s  ├── Line 1 types out (0.8s)
@@ -65,6 +66,7 @@ App.jsx (Main Container)
 ```
 
 ### Section Transitions
+
 ```
 User clicks button
 ├── Current section: fade out + move up (0.4s)
@@ -74,6 +76,7 @@ User clicks button
 ```
 
 ### Hover Effects
+
 ```
 Button Hover:
 ├── Scale 1.05 (0.3s)
@@ -91,6 +94,7 @@ Card Hover:
 ## State Flow
 
 ### Quiz Flow
+
 ```
 1. User on HeroSection
    └── Clicks "Begin Recruitment Test"
@@ -110,6 +114,7 @@ Card Hover:
 ```
 
 ### Navigation Flow
+
 ```
 All Buttons:
 onClick={() => onNavigate('sectionName')}
@@ -128,6 +133,7 @@ Enter animation (new)
 ## CSS Class Patterns
 
 ### Tailwind Utilities
+
 ```css
 /* Text Glows */
 .text-glow-cyan     → Cyan neon glow
@@ -151,19 +157,34 @@ Enter animation (new)
 /* Animations */
 .animate-flicker    → Flicker/glitch effect
 .animate-pulse-slow → Slow pulse (4s)
-.animate-bg-pan     → Moving background
+.animate-bg-pan     → Moving background;
 ```
 
 ### Custom Classes
+
 ```css
-.grid-bg       → Animated grid background
-.scanlines     → CRT scanline effect (::after)
-.glitch-overlay → Flicker overlay (::before)
+.grid-bg
+  →
+  Animated
+  grid
+  background
+  .scanlines
+  →
+  CRT
+  scanline
+  effect
+  (::after)
+  .glitch-overlay
+  →
+  Flicker
+  overlay
+  (::before);
 ```
 
 ## Framer Motion Patterns
 
 ### Fade In (Standard Entry)
+
 ```javascript
 initial={{ opacity: 0, y: 20 }}
 animate={{ opacity: 1, y: 0 }}
@@ -171,42 +192,45 @@ transition={{ duration: 0.8 }}
 ```
 
 ### Stagger Children
+
 ```javascript
 // Parent
-variants={containerVariants}
-initial="hidden"
-animate="visible"
+variants = { containerVariants };
+initial = "hidden";
+animate = "visible";
 
 // Child
-variants={itemVariants}
+variants = { itemVariants };
 ```
 
 ### Hover Scale
+
 ```javascript
 whileHover={{ scale: 1.05 }}
 whileTap={{ scale: 0.95 }}
 ```
 
 ### Continuous Animation
+
 ```javascript
 animate={{ y: [0, 10, 0] }}
-transition={{ 
-  duration: 2, 
-  repeat: Infinity 
+transition={{
+  duration: 2,
+  repeat: Infinity
 }}
 ```
 
 ## Color Usage Guide
 
-| Element | Primary | Hover/Active | Text |
-|---------|---------|--------------|------|
-| **Headings** | Cyan | - | Cyan glow |
-| **Subtext** | Magenta | - | Magenta glow |
-| **Buttons** | Cyan border | Cyan fill | White/Dark |
-| **Cards** | Purple border | Purple glow | Gray-300 |
-| **Leaders** | Purple card | Purple glow | White |
-| **Quiz Options** | Cyan border | Cyan fill | White/Dark |
-| **Results** | Magenta title | Pulse glow | Gray-300 |
+| Element          | Primary       | Hover/Active | Text         |
+| ---------------- | ------------- | ------------ | ------------ |
+| **Headings**     | Cyan          | -            | Cyan glow    |
+| **Subtext**      | Magenta       | -            | Magenta glow |
+| **Buttons**      | Cyan border   | Cyan fill    | White/Dark   |
+| **Cards**        | Purple border | Purple glow  | Gray-300     |
+| **Leaders**      | Purple card   | Purple glow  | White        |
+| **Quiz Options** | Cyan border   | Cyan fill    | White/Dark   |
+| **Results**      | Magenta title | Pulse glow   | Gray-300     |
 
 ## Responsive Breakpoints
 
@@ -227,12 +251,14 @@ className="flex-col md:flex-row"  // Layout switch
 ## Performance Notes
 
 ### Heavy Operations
+
 - Particle animations (20 elements, continuous)
 - Text glow shadows (multiple layers)
 - Scanlines overlay (full viewport)
 - Glitch animations (clip-path changes)
 
 ### Optimization Tips
+
 1. Reduce particle count if needed (line 23 in AnimatedBackground)
 2. Disable scanlines on mobile (add media query)
 3. Use `will-change` for frequently animated elements
@@ -261,18 +287,18 @@ Compressed (gzip):
 
 ## Key Files & Their Purpose
 
-| File | Lines | Purpose |
-|------|-------|---------|
-| `App.jsx` | ~120 | Main app, routing, state |
-| `LoadingScreen.jsx` | ~80 | Intro animation |
-| `HeroSection.jsx` | ~100 | Landing page + button |
-| `InnerCircle.jsx` | ~150 | About section, leaders |
-| `QuizSection.jsx` | ~180 | Quiz logic, form |
-| `ResultSection.jsx` | ~140 | Results display |
-| `Footer.jsx` | ~60 | Footer, easter egg |
-| `AnimatedBackground.jsx` | ~50 | BG effects |
-| `index.css` | ~100 | Global styles |
-| `tailwind.config.js` | ~80 | Theme config |
+| File                     | Lines | Purpose                  |
+| ------------------------ | ----- | ------------------------ |
+| `App.jsx`                | ~120  | Main app, routing, state |
+| `LoadingScreen.jsx`      | ~80   | Intro animation          |
+| `HeroSection.jsx`        | ~100  | Landing page + button    |
+| `InnerCircle.jsx`        | ~150  | About section, leaders   |
+| `QuizSection.jsx`        | ~180  | Quiz logic, form         |
+| `ResultSection.jsx`      | ~140  | Results display          |
+| `Footer.jsx`             | ~60   | Footer, easter egg       |
+| `AnimatedBackground.jsx` | ~50   | BG effects               |
+| `index.css`              | ~100  | Global styles            |
+| `tailwind.config.js`     | ~80   | Theme config             |
 
 ---
 

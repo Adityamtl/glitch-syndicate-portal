@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 const HeroSection = ({ onNavigate }) => {
   return (
@@ -33,11 +33,17 @@ const HeroSection = ({ onNavigate }) => {
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.8 }}
       >
-        <GlitchButton onClick={() => onNavigate('quiz')}>
+        <GlitchButton onClick={() => onNavigate("about")} secondary>
+          About The Syndicate
+        </GlitchButton>
+        <GlitchButton onClick={() => onNavigate("quiz")}>
           Begin Recruitment Test
         </GlitchButton>
-        <GlitchButton onClick={() => onNavigate('about')} secondary>
-          About The Syndicate
+        <GlitchButton 
+          onClick={() => onNavigate("static")} 
+          className="border-neon-magenta text-neon-magenta hover:bg-neon-magenta"
+        >
+          Join The Static
         </GlitchButton>
       </motion.div>
 
@@ -60,41 +66,47 @@ const HeroSection = ({ onNavigate }) => {
 };
 
 // Reusable Glitch Button Component
-export const GlitchButton = ({ children, onClick, secondary, className = '' }) => {
+export const GlitchButton = ({
+  children,
+  onClick,
+  secondary,
+  className = "",
+}) => {
   return (
     <motion.button
       onClick={onClick}
       className={`
         relative font-orbitron text-lg md:text-xl uppercase tracking-wider
         px-8 py-4 border-2 transition-all duration-300
-        ${secondary 
-          ? 'border-neon-purple text-neon-purple border-glow-purple hover:bg-neon-purple' 
-          : 'border-neon-cyan text-neon-cyan border-glow-cyan hover:bg-neon-cyan'
+        ${
+          secondary
+            ? "border-neon-purple text-neon-purple border-glow-purple hover:bg-neon-purple"
+            : "border-neon-cyan text-neon-cyan border-glow-cyan hover:bg-neon-cyan"
         }
         hover:text-dark-bg hover:shadow-neon-cyan
         ${className}
       `}
-      whileHover={{ 
+      whileHover={{
         scale: 1.05,
-        boxShadow: secondary 
-          ? '0 0 20px #9400d3, 0 0 40px #ff00ff'
-          : '0 0 20px #00ffff, 0 0 40px #00aaff'
+        boxShadow: secondary
+          ? "0 0 20px #9400d3, 0 0 40px #ff00ff"
+          : "0 0 20px #00ffff, 0 0 40px #00aaff",
       }}
       whileTap={{ scale: 0.95 }}
     >
       {children}
-      
+
       {/* Glitch effect on hover */}
       <motion.div
         className="absolute inset-0 bg-dark-bg pointer-events-none"
-        initial={{ clipPath: 'inset(0 0 100% 0)' }}
+        initial={{ clipPath: "inset(0 0 100% 0)" }}
         whileHover={{
           clipPath: [
-            'inset(0 0 100% 0)',
-            'inset(0 0 50% 0)',
-            'inset(50% 0 0 0)',
-            'inset(0 0 50% 0)',
-            'inset(0 0 100% 0)',
+            "inset(0 0 100% 0)",
+            "inset(0 0 50% 0)",
+            "inset(50% 0 0 0)",
+            "inset(0 0 50% 0)",
+            "inset(0 0 100% 0)",
           ],
         }}
         transition={{ duration: 0.3 }}

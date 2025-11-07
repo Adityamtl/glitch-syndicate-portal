@@ -1,18 +1,18 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React from "react";
+import { motion } from "framer-motion";
 
 const AnimatedBackground = () => {
   return (
     <>
       {/* Animated grid background */}
       <div className="fixed inset-0 grid-bg -z-10" />
-      
+
       {/* CRT scanlines effect */}
       <div className="scanlines" />
-      
+
       {/* Glitch overlay */}
       <div className="glitch-overlay" />
-      
+
       {/* Floating particles (optional effect) */}
       <div className="fixed inset-0 overflow-hidden -z-5 pointer-events-none">
         {[...Array(20)].map((_, i) => (

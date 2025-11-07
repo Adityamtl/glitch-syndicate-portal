@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LoadingScreen = ({ onComplete }) => {
   const [currentLine, setCurrentLine] = useState(0);
   const [showAccessGranted, setShowAccessGranted] = useState(false);
 
   const lines = [
-    '> Connecting to the Dark Grid...',
-    '> Bypassing NeoCity firewalls...',
-    '> Accessing The Glitch Syndicate mainframe...',
+    "> Connecting to the Dark Grid...",
+    "> Bypassing NeoCity firewalls...",
+    "> Accessing The Glitch Syndicate mainframe...",
   ];
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const LoadingScreen = ({ onComplete }) => {
       }, lines.length * 800 + 2500)
     );
 
-    return () => timers.forEach(timer => clearTimeout(timer));
+    return () => timers.forEach((timer) => clearTimeout(timer));
   }, []);
 
   return (

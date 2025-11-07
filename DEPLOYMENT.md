@@ -9,9 +9,11 @@ Your cyberpunk portal is ready to deploy! Here are several options:
 1. **Sign up at [netlify.com](https://netlify.com)**
 
 2. **Deploy via Drag & Drop:**
+
    ```bash
    npm run build
    ```
+
    Then drag the `dist` folder to Netlify
 
 3. **Or Deploy via Git:**
@@ -24,11 +26,13 @@ Your cyberpunk portal is ready to deploy! Here are several options:
 ### Option 2: Vercel
 
 1. **Install Vercel CLI:**
+
    ```bash
    npm install -g vercel
    ```
 
 2. **Deploy:**
+
    ```bash
    npm run build
    vercel
@@ -42,11 +46,13 @@ Your cyberpunk portal is ready to deploy! Here are several options:
 ### Option 3: GitHub Pages
 
 1. **Install gh-pages:**
+
    ```bash
    npm install --save-dev gh-pages
    ```
 
 2. **Add to package.json scripts:**
+
    ```json
    "scripts": {
      "deploy": "npm run build && gh-pages -d dist"
@@ -54,14 +60,16 @@ Your cyberpunk portal is ready to deploy! Here are several options:
    ```
 
 3. **Update vite.config.js:**
+
    ```javascript
    export default defineConfig({
-     base: '/glitch-syndicate-portal/', // Your repo name
+     base: "/glitch-syndicate-portal/", // Your repo name
      // ... rest of config
-   })
+   });
    ```
 
 4. **Deploy:**
+
    ```bash
    npm run deploy
    ```
@@ -77,6 +85,7 @@ Your cyberpunk portal is ready to deploy! Here are several options:
 2. **Connect GitHub repository**
 
 3. **Build settings:**
+
    - Framework preset: Vite
    - Build command: `npm run build`
    - Output directory: `dist`
@@ -104,7 +113,9 @@ Opens at `http://localhost:4173`
 ## 🔧 Environment Configuration
 
 ### Custom Domain
+
 Most hosting providers allow custom domains:
+
 - Netlify: Domain settings
 - Vercel: Domains section
 - Cloudflare: Custom domains tab
@@ -112,6 +123,7 @@ Most hosting providers allow custom domains:
 ### Build Optimization
 
 Already included in your config:
+
 - ✅ Code splitting
 - ✅ Asset optimization
 - ✅ CSS minification
@@ -120,6 +132,7 @@ Already included in your config:
 ## 🌐 CDN & Performance
 
 Your app will automatically get:
+
 - **Global CDN** (all platforms)
 - **HTTPS** (automatic)
 - **Instant cache invalidation**
@@ -130,24 +143,36 @@ Your app will automatically get:
 Add to `index.html` before `</head>`:
 
 **Google Analytics:**
+
 ```html
-<script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-ID"></script>
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=YOUR-ID"
+></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'YOUR-ID');
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "YOUR-ID");
 </script>
 ```
 
 **Plausible (Privacy-friendly):**
+
 ```html
-<script defer data-domain="yourdomain.com" src="https://plausible.io/js/script.js"></script>
+<script
+  defer
+  data-domain="yourdomain.com"
+  src="https://plausible.io/js/script.js"
+></script>
 ```
 
 ## 🔒 Security Headers (Netlify)
 
 Create `public/_headers`:
+
 ```
 /*
   X-Frame-Options: DENY
@@ -159,6 +184,7 @@ Create `public/_headers`:
 ## 🐛 Troubleshooting Deployment
 
 ### Build Fails
+
 ```bash
 # Clear cache and reinstall
 rm -rf node_modules package-lock.json
@@ -167,12 +193,15 @@ npm run build
 ```
 
 ### 404 on Refresh (SPA)
+
 Add to `public/_redirects` (Netlify):
+
 ```
 /* /index.html 200
 ```
 
 For Vercel, add `vercel.json`:
+
 ```json
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
@@ -180,6 +209,7 @@ For Vercel, add `vercel.json`:
 ```
 
 ### Missing Assets
+
 Make sure assets are in `public/` or imported in components
 
 ## ✅ Pre-Deployment Checklist
@@ -197,6 +227,7 @@ Make sure assets are in `public/` or imported in components
 ## 🎨 Post-Deployment
 
 After deployment:
+
 1. Test on different browsers
 2. Check mobile responsiveness
 3. Test loading speed with [PageSpeed Insights](https://pagespeed.web.dev/)
@@ -205,6 +236,7 @@ After deployment:
 ## 📱 PWA (Optional Future Enhancement)
 
 To make it a Progressive Web App:
+
 1. Add `vite-plugin-pwa` to your project
 2. Configure service worker
 3. Add manifest.json
@@ -214,6 +246,6 @@ To make it a Progressive Web App:
 
 **Your portal to the neon underworld is ready to go live!**
 
-*Remember: "The corporations build walls; we show them walls are just suggestions."*
+_Remember: "The corporations build walls; we show them walls are just suggestions."_
 
 🌟 Need help? Check the hosting platform's documentation or deployment logs.

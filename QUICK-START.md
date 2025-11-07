@@ -3,6 +3,7 @@
 ## Your React app is ready! Here's what to do:
 
 ### 🎮 Currently Running
+
 Your dev server is running at: **http://localhost:3000/**
 
 Open your browser and check it out! 🌌
@@ -60,6 +61,7 @@ Update `index.html` Google Fonts link and `tailwind.config.js` fontFamily
 All components are in `src/components/` - self-contained and easy to edit
 
 **Add New Sections:**
+
 1. Create component in `src/components/`
 2. Add to `App.jsx`
 3. Add navigation button
@@ -69,12 +71,14 @@ All components are in `src/components/` - self-contained and easy to edit
 See `DEPLOYMENT.md` for full guide. Quick options:
 
 **Netlify (Easiest):**
+
 ```bash
 npm run build
 # Drag dist/ folder to netlify.com
 ```
 
 **Vercel:**
+
 ```bash
 npm install -g vercel
 vercel
@@ -90,6 +94,7 @@ vercel
 ### 🐛 Common Issues
 
 **Port already in use?**
+
 ```bash
 # Kill process on port 3000
 npx kill-port 3000
@@ -97,23 +102,28 @@ npm run dev
 ```
 
 **Animations not working?**
+
 - Check browser console for errors
 - Make sure Framer Motion is installed
 
 **Styles not applying?**
+
 - Restart dev server
 - Clear browser cache
 
 ### 💡 Tips
 
 1. **Loading Screen** - Clears after first view (uses sessionStorage)
+
    - Clear browser storage to see it again
    - Or use incognito mode
 
 2. **Quiz Results** - Based on answer combinations
+
    - 4 possible roles: Runner, Hacker, Enforcer, Ghost
 
 3. **Performance** - Reduce particles in AnimatedBackground.jsx if slow
+
    - Line 23: Change `[...Array(20)]` to lower number
 
 4. **Easter Egg** - Type `/access` to activate hidden protocol
@@ -129,12 +139,14 @@ npm run dev
 ### 📝 Files Overview
 
 **Original Static Site** (preserved):
+
 - `index-old.html` - Original HTML
 - `about.html` - About page
 - `css/styles.css` - Original CSS
 - `js/app.js` - Original JS
 
 **React Application** (active):
+
 - `index.html` - React template
 - `src/` - All React code
 - `package.json` - Dependencies
@@ -147,8 +159,9 @@ npm run dev
 Your cyberpunk portal is ready. Welcome to The Glitch Syndicate! 🚀
 
 **Questions?** Check:
+
 - `README-REACT.md` - Full documentation
 - `DEPLOYMENT.md` - Deployment guide
 - `MIGRATION-NOTES.md` - What changed from static version
 
-*"Access Granted. Enter the neon underworld."*
+_"Access Granted. Enter the neon underworld."_
