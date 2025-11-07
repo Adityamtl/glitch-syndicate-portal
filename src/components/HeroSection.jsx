@@ -39,8 +39,8 @@ const HeroSection = ({ onNavigate }) => {
         <GlitchButton onClick={() => onNavigate("quiz")}>
           Begin Recruitment Test
         </GlitchButton>
-        <GlitchButton 
-          onClick={() => onNavigate("static")} 
+        <GlitchButton
+          onClick={() => onNavigate("static")}
           className="border-neon-magenta text-neon-magenta hover:bg-neon-magenta"
         >
           Join The Static
